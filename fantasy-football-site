@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DraftBoard Central - Your Fantasy Football Hub</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+    header {
+      background: #2f2f2f;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid #6e4cd7; /* Purple */
+    }
+    header .logo {
+      display: flex;
+      align-items: center;
+    }
+    header .logo img {
+      height: 48px;
+      margin-right: 1rem;
+    }
+    header h1 {
+      color: #56d86b; /* Green */
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    nav a {
+      color: #e0e0e0;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #56d86b;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+      background: #1e1e1e;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px #6e4cd7a0;
+    }
+
+    section h2 {
+      color: #6e4cd7;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #56d86b;
+      padding-bottom: 0.3rem;
+      font-weight: 700;
+    }
+
+    /* Weekly Projections Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      color: #e0e0e0;
+    }
+    th, td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #444;
+      text-align: left;
+    }
+    th {
+      background: #333;
+      font-weight: 700;
+    }
+    tr:hover {
+      background: #333333aa;
+    }
+
+    /* Download Buttons */
+    .download-btn {
+      background: #56d86b;
+      color: #121212;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .download-btn:hover {
+      background: #48c05a;
+    }
+
+    /* Embedded Video */
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 ratio */
+      padding-top: 25px;
+      height: 0;
+      margin-top: 1rem;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+
+    /* Contact Form */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin: 0.5rem 0 0.25rem 0;
+      font-weight: 600;
+      color: #56d86b;
+    }
+    input, textarea {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      resize: vertical;
+    }
+    textarea {
+      min-height: 100px;
+    }
+    button[type="submit"] {
+      width: fit-content;
+      background: #6e4cd7;
+      color: #e0e0e0;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-weight: 700;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background: #563acc;
+    }
+
+    /* Player Rankings */
+    .rankings-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .rankings-list li {
+      background: #2b2b2b;
+      margin-bottom: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    /* Newsletter Signup */
+    .newsletter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    .newsletter input[type="email"] {
+      flex-grow: 1;
+      min-width: 250px;
+    }
+    .newsletter button {
+      background: #56d86b;
+      color: #121212;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .newsletter button:hover {
+      background: #48c05a;
+    }
+
+    /* Footer */
+    footer {
+      background: #2f2f2f;
+      text-align: center;
+      padding: 1rem;
+      color: #999;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav a {
+        margin-left: 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <!-- Updated logo you shared -->
+      <img src="https://i.imgur.com/ALgq7Tq.png" alt="DraftBoard Central Logo" />
+      <h1>DraftBoard Central</h1>
+    </div>
+    <nav>
+      <a href="#projections">Weekly Projections</a>
+      <a href="#downloads">Matchup Spreadsheets</a>
+      <a href="#mockdrafts">Mock Drafts</a>
+      <a href="#rankings">Player Rankings</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Homepage intro -->
+    <section id="home">
+      <h2>Welcome to DraftBoard Central</h2>
+      <p>Your ultimate fantasy football resource for expert weekly projections, matchup spreadsheets, mock draft videos, and player rankings. Stay ahead of the competition with DraftBoard Central!</p>
+    </section>
+
+    <!-- Weekly Projections -->
+    <section id="projections">
+      <h2>Weekly Projections</h2>
+      <p>Here’s a quick snapshot of this week’s top fantasy football player projections:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Position</th>
+            <th>Team</th>
+            <th>Projected Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Jonathan Taylor</td><td>RB</td><td>IND</td><td>24.3</td></tr>
+          <tr><td>Justin Jefferson</td><td>WR</td><td>MIN</td><td>22.8</td></tr>
+          <tr><td>Patrick Mahomes</td><td>QB</td><td>KC</td><td>28.4</td></tr>
+          <tr><td>Darren Waller</td><td>TE</td><td>NYG</td><td>15.7</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Downloadable Matchup Spreadsheets -->
+    <section id="downloads">
+      <h2>Download Matchup Spreadsheets</h2>
+      <p>Get your hands on detailed spreadsheets to help you strategize every matchup this week.</p>
+      <a href="/files/matchup-spreadsheet-week1.xlsx" class="download-btn" download>Download Week 1 Spreadsheet</a><br/>
+      <a href="/files/matchup-spreadsheet-week2.xlsx" class="download-btn" download>Download Week 2 Spreadsheet</a>
+    </section>
+
+    <!-- Mock Draft Videos -->
+    <section id="mockdrafts">
+      <h2>Mock Draft Videos</h2>
+      <p>Watch our expert mock drafts to prepare for your fantasy league draft day.</p>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Mock Draft Video 1" allowfullscreen></iframe>
+      </div>
+      <div class="video-wrapper" style="margin-top:1rem;">
+        <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" title="Mock Draft Video 2" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- Player Rankings -->
+    <section id="rankings">
+      <h2>Top Player Rankings</h2>
+      <ul class="rankings-list">
+        <li>1. Jonathan Taylor (RB, IND)</li>
+        <li>2. Justin Jefferson (WR, MIN)</li>
+        <li>3. Patrick Mahomes (QB, KC)</li>
+        <li>4. Cooper Kupp (WR, LAR)</li>
+        <li>5. Travis Kelce (TE, KC)</li>
+      </ul>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section id="newsletter">
+      <h2>Subscribe to Our Newsletter</h2>
+      <p>Get weekly fantasy football insights, news, and updates sent directly to your inbox.</p>
+      <form id="newsletterForm" onsubmit="return handleNewsletterSubmit(event)">
+        <div class="newsletter">
+          <input type="email" id="email" name="email" placeholder="Your email address" required />
+          <button type="submit">Subscribe</button>
+        </div>
+      </form>
+      <p id="newsletterMsg" style="margin-top: 0.5rem;"></p>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Have questions or want to partner with DraftBoard Central? Send us a message below.</p>
+      <form id="contactForm" onsubmit="return handleContactSubmit(event)">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" required />
+        
+        <label for="emailContact">Email</label>
+        <input type="email" id="emailContact" name="emailContact" placeholder="Your email address" required />
+        
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Your message" required></textarea>
+        
+        <button type="submit">Send Message</button>
+      </form>
+      <p id="contactMsg" style="margin-top: 0.5rem;"></p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 DraftBoard Central. All rights reserved.
+  </footer>
+
+  <script>
+    // Newsletter form submission handler (mock)
+    function handleNewsletterSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      if(email) {
+        document.getElementById('newsletterMsg').textContent = `Thanks for subscribing, ${email}!`;
+        document.getElementById('newsletterForm').reset();
+      }
+      return false;
+    }
+
+    // Contact form submission handler (mock)
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('emailContact').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if(name && email && message) {
+        document.getElementById('contactMsg').textContent = `Thank you, ${name}! Your message has been sent.`;
+        document.getElementById('contactForm').reset();
+      }
+      return false;
+    }
+  </script>
+
+</body>
+</html>
+
